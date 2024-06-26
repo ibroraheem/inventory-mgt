@@ -1,0 +1,629 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Inventory APP",
+    "description": "Inventory API documentation",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "User Registration",
+        "description": "Endpoint to register a new user.",
+        "responses": {
+          "201": {
+            "description": "User successfully registered."
+          },
+          "400": {
+            "description": "Bad Request - Invalid user data."
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "Endpoint to authenticate and login a user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful authentication."
+          },
+          "400": {
+            "description": "Bad Request - Invalid credentials."
+          }
+        }
+      }
+    },
+    "/forgot": {
+      "post": {
+        "summary": "Forgot Password",
+        "description": "Endpoint to request a password reset link via email.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset email sent successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid email format."
+          },
+          "404": {
+            "description": "Not Found - Email address not registered."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/reset/{token}": {
+      "put": {
+        "summary": "Reset Password",
+        "description": "Endpoint to reset user password using a provided token.",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password successfully reset."
+          },
+          "400": {
+            "description": "Bad Request - Invalid token or password."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "summary": "Admin Dashboard",
+        "description": "Endpoint to retrieve admin dashboard data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved admin dashboard data."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/sales-rep": {
+      "get": {
+        "summary": "Sales Representative Dashboard",
+        "description": "Endpoint to retrieve sales representative dashboard data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved sales rep dashboard data."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "summary": "Create Sale",
+        "description": "Endpoint to create a new sale.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sale successfully created."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      },
+      "get": {
+        "summary": "Get All Products",
+        "description": "Endpoint to retrieve all products.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved products."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "summary": "Get Product by ID",
+        "description": "Endpoint to retrieve a product by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved product."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "404": {
+            "description": "Not Found - Product not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Product by ID",
+        "description": "Endpoint to update a product by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "costPrice": {
+                  "example": 1
+                },
+                "sellingPrice": {
+                  "example": 1
+                },
+                "quantity": {
+                  "example": 1
+                },
+                "lowStockThreshold": {
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated product."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "404": {
+            "description": "Not Found - Product not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Product by ID",
+        "description": "Endpoint to delete a product by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted product."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "404": {
+            "description": "Not Found - Product not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/{id}/add-quantity": {
+      "put": {
+        "summary": "Add Quantity to Product",
+        "description": "Endpoint to add quantity to a product.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quantity added successfully."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "404": {
+            "description": "Not Found - Product not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/dashboard/admin": {
+      "get": {
+        "summary": "Admin Dashboard Data",
+        "description": "Endpoint to retrieve admin dashboard data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved admin dashboard data."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/dashboard/sales-rep": {
+      "get": {
+        "summary": "Sales Representative Dashboard Data",
+        "description": "Endpoint to retrieve sales representative dashboard data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          }
+        }
+      }
+    },
+    "/receipts": {
+      "get": {
+        "summary": "Get Receipts",
+        "description": "Endpoint to retrieve receipts.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved receipts."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/all": {
+      "get": {
+        "summary": "Get All Data",
+        "description": "Endpoint to retrieve all data (products, users, etc.).",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all data."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "summary": "Get User by ID",
+        "description": "Endpoint to retrieve user by ID.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/analytics": {
+      "get": {
+        "summary": "Get Analytics Data",
+        "description": "Endpoint to retrieve analytics data.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved analytics data."
+          },
+          "400": {
+            "description": "Bad Request."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authorization token."
+          },
+          "403": {
+            "description": "Forbidden - User does not have sufficient permissions."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    }
+  }
+}
