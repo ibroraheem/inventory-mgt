@@ -5,8 +5,8 @@ const doc = {
         title: 'Inventory APP',
         description: 'Inventory API documentation',
     },
-    host: 'localhost:3000',
-    schemes: ['http'],
+    host: 'inventory-mgt.onrender.com',
+    schemes: ['https'],
 };
 
 const outputFile = './swagger-output.json';
